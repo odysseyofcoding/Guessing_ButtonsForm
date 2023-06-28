@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading;
-using System.Drawing;
 
 namespace Guessing_Buttons
 {
@@ -21,7 +19,7 @@ namespace Guessing_Buttons
             }
             for (int i = 1; i < 5; i++)
             {
-                
+
                 currentGeneratedNumber = rnd.Next(1, 9);
                 switch (currentGeneratedNumber)
                 {
@@ -53,12 +51,20 @@ namespace Guessing_Buttons
                         Methods.UpdateButtonAndList(btnButton9, "9");
                         break;
                 }
-                
+
             }
 
             Methods.EnableAllButtons();
-            // Focus to get the Keystrokes accepted else they won't be accepeted until btn_confirm is focused
-            ActiveForm.Invoke((MethodInvoker)(() => ActiveForm.Focus()));
+            try
+            {
+                // Focus to get the Keystrokes accepted else they won't be accepeted until btn_confirm is focused
+                ActiveForm.Invoke((MethodInvoker)(() => ActiveForm.Focus()));
+
+            }
+            catch
+            {
+                //in case the user has focused an other window
+            }
             GlobalVariables.EnableKeyPress = true;
         }
     }

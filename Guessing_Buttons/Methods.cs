@@ -138,17 +138,24 @@ namespace Guessing_Buttons
             HideAllButtons();
             for (int i = 0; i < 100; i++)
             {
-                
 
-                ActiveForm.Invoke((MethodInvoker)(() 
-                    => ActiveForm.BackColor = 
-                    Color.FromArgb(GlobalVariables.FlashBackground.Next(0, 255), 
-                    GlobalVariables.FlashBackground.Next(0, 255), 
+
+                ActiveForm.Invoke((MethodInvoker)(()
+                    => ActiveForm.BackColor =
+                    Color.FromArgb(GlobalVariables.FlashBackground.Next(0, 255),
+                    GlobalVariables.FlashBackground.Next(0, 255),
                     GlobalVariables.FlashBackground.Next(0, 255))));
 
                 Thread.Sleep(5);
+                try
+                {
+                    ActiveForm.Invoke((MethodInvoker)(() => ActiveForm.Update()));
+                }
+                catch (Exception ex)
+                {
 
-                ActiveForm.Invoke((MethodInvoker)(() => ActiveForm.Update()));
+                    throw new NotImplementedException("null ref, ", ex);
+                }
             }
             ActiveForm.BackColor = DefaultBackColor;
             ShowAllButtons();
